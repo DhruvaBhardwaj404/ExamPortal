@@ -7,20 +7,16 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 function Examboard(props) {
     const location = useLocation()
-    console.log(location)
     const history=useHistory()
     var [sel,setSel]=useState(props.answers[num]);
     const [num,setNum]=useState(props.current);
-   
-    
     const ques=props.questions[num]
 
+//=============================shows current question=====================================================================================================
     const currentQuestion= (
                             <div><b>
                                <h3>
-                               
-                                 <u> Question </u> :  {ques.question}
-                                 
+                                 <u> Question </u> :  {ques.question}  
                                </h3>
                                 <br/>
                                 <div >
@@ -31,12 +27,14 @@ function Examboard(props) {
                                 </div>
                             </b></div>
     )
-   
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    //===========================shows question attempted or not ==============================================================//
     const dataAttempt= props.questions.map(((el,index)=>{
                                                if(props.attempts[index]){
                                                     return(
                                                         <div className='col-3 m-1'>
-                                                          <button onClick={goTo}className='btn btn-success'>
+                                                          <button onClick={()=>goTo(index)} className='btn btn-success'>
                                                            Question-{index+1}
                                                           </button>    
                                                         </div>
@@ -52,30 +50,36 @@ function Examboard(props) {
                                                     )
                                                 }
                                                 }))
+ //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+ //=================================buttonHandlers=====================================================
     const back=()=>{
         if(num===0)
          alert('Cannot Go Back!!')
         else{
          setNum(num-1); 
-         
+         setSel(props.answers[num-1])
         }
     }
+
     const save=()=>{
        var newAns= props.answers;
        var newAtt= props.attempts
        newAtt[num]=true;
        newAns[num]=sel;
        props.setAnswers(newAns)
-       props.setAnswers(newAns)
+       props.setAttempts(newAtt)
+       setSel(props.answers[num])
        
     }
+
     const next=()=>{
          if(num===props.answers.length-1)
            alert('Cannot Go Any further')
          else{
              props.setCurrent(num+1);
              setNum(num+1);
+             setSel(props.answers[num+1])
              
          }  
     }
@@ -94,10 +98,11 @@ function Examboard(props) {
         }
 
     }
+ //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     return (
         <div style={{paddingTop:'22vh'}} className='container-fluid bg-secondary h-100' >
-            <div className='row '>
+            <div style={{height:'60vh'}} className='row '>
                <div style={{height:'50vh',overflow:'auto'}} className="col-md-8 bg-white border shadow p-3">
                    {currentQuestion}
                </div>

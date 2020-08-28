@@ -53,9 +53,9 @@ async function getData(user){
 async function getEnrolled(user){
    try{ 
     const getUserExams= await Users.findOne({email:user.email})
-    console.log(getUserExams.exams)
+   // console.log(getUserExams.exams)
     const getExams=await Exams.find({ExamID:{$in: getUserExams.exams}},{ExamID:1,Desc:1})
-    console.log(getExams);
+    //console.log(getExams);
     return getExams;
    }
    catch(err){
