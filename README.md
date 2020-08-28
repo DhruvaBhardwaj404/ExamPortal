@@ -23,6 +23,8 @@ This App uses Google Oauth2 to login Users and then provides a platform to take 
  
  > Download a google icon from Internet and copy it to build folder and rename to `Google.png`
  
+ > Copy bootstrap 4 directory from node_modules to build 
+ 
  # Documentation
  
   >App folder is divided into Two-Client and Server
